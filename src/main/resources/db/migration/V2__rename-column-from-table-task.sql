@@ -1,0 +1,1 @@
+ALTER TABLE task RENAME COLUMN createdAt to created_at;
