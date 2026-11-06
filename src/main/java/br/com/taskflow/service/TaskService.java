@@ -10,6 +10,7 @@ import br.com.taskflow.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,6 +52,8 @@ public class TaskService {
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
         task.setStatus(dto.status());
+        task.setUpdatedAt(LocalDateTime.now());
+
         return new ViewTaskDTO(this.repository.save(task));
     }
 
