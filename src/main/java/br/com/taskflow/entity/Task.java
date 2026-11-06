@@ -16,6 +16,7 @@ public class Task {
     private String title;
     private String message;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -26,6 +27,7 @@ public class Task {
         this.title = title;
         this.message = message;
         this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
         this.status = Status.PLANNED;
     }
 
@@ -33,6 +35,8 @@ public class Task {
         if (dto.title() != null) this.title = dto.title();
         if (dto.message() != null) this.message = dto.message();
         if (dto.status() != null) this.status = dto.status();
+
+        this.updatedAt = LocalDateTime.now();
     }
 
     public UUID getId() {
@@ -51,11 +55,17 @@ public class Task {
         return createdAt;
     }
 
+    public LocalDateTime getUpdatedAt() {return updatedAt;}
+
     public Status getStatus() {
         return status;
     }
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

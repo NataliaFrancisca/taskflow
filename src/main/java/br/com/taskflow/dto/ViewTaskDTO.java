@@ -11,6 +11,7 @@ public record ViewTaskDTO(
         String title,
         String message,
         LocalDateTime createdAt,
+        LocalDateTime updatedAt,
         Status status
 ) {
     public ViewTaskDTO(Task task){
@@ -19,6 +20,7 @@ public record ViewTaskDTO(
                 task.getTitle(),
                 task.getMessage(),
                 task.getCreatedAt(),
+                task.getUpdatedAt(),
                 task.getStatus()
         );
     }
