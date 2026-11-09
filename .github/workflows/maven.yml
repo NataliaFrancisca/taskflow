@@ -1,0 +1,35 @@
+
+name: Java CI with Maven
+
+# Quando o workflow será executado
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Permissões necessárias
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Baixa o código do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      # Configura o Java
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      # Executa os testes e valida o projeto
+      - name: Build and test
+        run: mvn --batch-mode verify
