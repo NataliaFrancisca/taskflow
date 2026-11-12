@@ -22,8 +22,7 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -205,5 +204,20 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$.status").value("DONE"));
 
         verify(service).changeTaskStatus(eq(id), any(EditStatusTaskDTO.class));
+    }
+
+    @Test
+    void shouldReturnCode204WhenTaskIsDeleted() throws Exception {
+        UUID id = UUID.randomUUID();
+
+        doNothing().when(service).delete(id);
+
+        mvc.perform(
+                delete("/api/tasks/{id}", id)
+        )
+                .andExpect(status().isNoContent())
+                .andExpect(content().string(""));
+
+        verify(service).delete(id);
     }
 }
